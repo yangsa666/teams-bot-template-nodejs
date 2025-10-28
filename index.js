@@ -1,8 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
 // @ts-check
-
 const path = require('path');
 const restify = require('restify');
 
@@ -32,3 +28,11 @@ server.post('/api/messages', async (req, res) => {
     console.log('Received request:', req.body);
     await adapter.process(req, res, (context) => bot.run(context));
 });
+
+// Listen for health check requests.
+server.get('/api/health', async (req, res) => {
+    res.send(200, 'OK');
+    console.log('Health check OK');
+});
+
+// You can add more endpoints for your bot here, for example, to send proactive messages.
