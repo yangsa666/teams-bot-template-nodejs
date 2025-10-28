@@ -12,7 +12,7 @@
     "tool"
   ],
   "author": "yangsa666@outlook.com",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^9.26.0",
     "eslint": "^9.26.0",
