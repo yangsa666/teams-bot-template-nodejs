@@ -40,6 +40,7 @@ class MyTeamsBot extends ActivityHandler {
                 const txt = removedMentionText.toLowerCase().replace(/\n|\r/g, '').trim();
                 if (txt === '/command1') {
                     await context.sendActivity('You have triggered command 1!');
+                    return;
                 }
 
                 // To handle the raw message, you can use removedMentionText
@@ -71,7 +72,10 @@ class MyTeamsBot extends ActivityHandler {
                     });
                     const cardMessage = MessageFactory.attachment(card);
                     await context.sendActivity(cardMessage);
+                    return;
                 }
+
+                await context.sendActivity('You have sent a message: ' + txt);
             }
 
             // Check value if it's submitted by a message card

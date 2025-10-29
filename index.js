@@ -24,8 +24,12 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 
 // Listen for incoming requests.
 server.post('/api/messages', async (req, res) => {
+    // Log the request headers and body for debugging purposes
+    if (process.env.TAG === 'dev') {
+        console.log(req.headers.authorization);
+        console.log('Received request:', req.body);
+    }
     // Route received a request to adapter for processing
-    console.log('Received request:', req.body);
     await adapter.process(req, res, (context) => bot.run(context));
 });
 
