@@ -26,8 +26,8 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 server.post('/api/messages', async (req, res) => {
     // Log the request headers and body for debugging purposes
     if (process.env.TAG === 'dev') {
-        console.log(req.headers.authorization);
-        console.log('Received request:', req.body);
+        console.log('Recevied request headers', req.headers.authorization);
+        console.log('Received request body:', req.body);
     }
     // Route received a request to adapter for processing
     await adapter.process(req, res, (context) => bot.run(context));
