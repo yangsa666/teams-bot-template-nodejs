@@ -13,6 +13,7 @@
 - 健康检查端点
 - MongoDB数据持久化
 - Docker容器化部署支持
+- 与OpenAI或Azure OpenAI的流式对话功能
 
 ## 技术栈
 
@@ -21,6 +22,7 @@
 - **MongoDB** - 数据存储
 - **Restify** - Web服务器
 - **Docker** - 容器化部署
+- **OpenAI/Azure OpenAI** - AI对话功能
 
 ## 安装与配置
 
@@ -106,6 +108,10 @@
 | DB_USER | 数据库用户名 | - |
 | DB_PASSWORD | 数据库密码 | - |
 | DB_CONVERSATIONREFERENCE_COLLECTION_NAME | 会话引用集合名称 | conversationReference |
+| OPENAI_API_KEY | OpenAI或Azure OpenAI的API密钥 | - |
+| OPENAI_MODEL | OpenAI模型名称 | gpt-3.5-turbo |
+| OPENAI_AZURE_BASE_URL | Azure OpenAI基础URL（使用标准OpenAI时留空） | - |
+| ENABLE_STREAMING | 启用AI流式响应 | true |
 
 ## 项目结构
 
@@ -114,8 +120,11 @@
 │   ├── adapter.js      # Bot Framework适配器配置
 │   ├── bot.js          # 主要机器人逻辑
 │   └── sendMessage.js  # 主动发送消息功能
+├── models/
+│   └── streaming.js    # 流媒体功能模型和工具
 ├── utils/
-│   └── database.js     # 数据库操作相关功能
+│   ├── database.js     # 数据库操作相关功能
+│   └── openaiClient.js # OpenAI客户端，用于AI对话
 ├── index.js            # 应用入口点
 ├── package.json        # 项目依赖和脚本
 ├── docker-compose.yml  # Docker Compose配置
@@ -131,6 +140,13 @@
 
 - `/command1`: 触发命令1的响应
 - `/cardtest`: 发送一个自适应卡片示例
+
+### AI对话
+
+默认情况下，任何未被识别为命令的消息都将由AI对话引擎处理。
+- 机器人支持标准OpenAI和Azure OpenAI端点
+- 流式响应默认已启用（`ENABLE_STREAMING=true`）
+- 流式功能提供实时输入指示器和渐进式响应交付
 
 ### 扩展机器人功能
 

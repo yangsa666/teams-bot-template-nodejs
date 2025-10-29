@@ -13,6 +13,7 @@ This is a template project for developing Microsoft Teams bots using Node.js. It
 - Health check endpoint
 - MongoDB data persistence
 - Docker containerization deployment support
+- Streaming conversation with OpenAI or Azure OpenAI
 
 ## Tech Stack
 
@@ -21,6 +22,7 @@ This is a template project for developing Microsoft Teams bots using Node.js. It
 - **MongoDB** - Data storage
 - **Restify** - Web server
 - **Docker** - Containerization deployment
+- **OpenAI/Azure OpenAI** - AI conversation capabilities
 
 ## Installation and Configuration
 
@@ -106,6 +108,10 @@ This is a template project for developing Microsoft Teams bots using Node.js. It
 | DB_USER | Database username | - |
 | DB_PASSWORD | Database password | - |
 | DB_CONVERSATIONREFERENCE_COLLECTION_NAME | Conversation reference collection name | conversationReference |
+| OPENAI_API_KEY | OpenAI or Azure OpenAI API key | - |
+| OPENAI_MODEL | OpenAI model name | gpt-3.5-turbo |
+| OPENAI_AZURE_BASE_URL | Azure OpenAI base URL (leave empty for standard OpenAI) | - |
+| ENABLE_STREAMING | Enable streaming responses from AI | true |
 
 ## Project Structure
 
@@ -114,8 +120,11 @@ This is a template project for developing Microsoft Teams bots using Node.js. It
 │   ├── adapter.js      # Bot Framework adapter configuration
 │   ├── bot.js          # Main bot logic
 │   └── sendMessage.js  # Proactive messaging functionality
+├── models/
+│   └── streaming.js    # Streaming functionality models and utilities
 ├── utils/
-│   └── database.js     # Database operation related functions
+│   ├── database.js     # Database operation related functions
+│   └── openaiClient.js # OpenAI client for AI conversations
 ├── index.js            # Application entry point
 ├── package.json        # Project dependencies and scripts
 ├── docker-compose.yml  # Docker Compose configuration
@@ -131,6 +140,13 @@ The bot supports the following predefined commands:
 
 - `/command1`: Triggers command 1 response
 - `/cardtest`: Sends an adaptive card example
+
+### AI Conversation
+
+By default, any message not recognized as a command will be processed by the AI conversation engine.
+- The bot supports both standard OpenAI and Azure OpenAI endpoints
+- Streaming responses are enabled by default (`ENABLE_STREAMING=true`)
+- The streaming feature provides real-time typing indicators and progressive response delivery
 
 ### Extending Bot Functionality
 
